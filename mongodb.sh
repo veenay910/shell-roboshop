@@ -19,7 +19,7 @@ fi
 dnf list installed mongodb
 if [ $? -ne 0 ]; then
     echo "Mongodb not exist"
-    dnf install mongodb -y
+    dnf install mongodb-org -y
 else
     echo "Mongodb already exist... skipping"
 fi
