@@ -39,6 +39,7 @@ dnf install mongodb-org -y &>>$LOG_FILE
 VALIDATE $? "Install Mongodb"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Allowing access to network"
 
 systemctl enable mongod &>>$LOG_FILE
 VALIDATE $? "Enable Mongodb"
