@@ -7,8 +7,8 @@ B='\e[34m'
 Y='\e[33m'
 N='\e[0m'
 
-LOG_FOLDER="/var/log/mongodb"
-SCRIPT_FILE=$(echo $0)
+LOG_FOLDER="/var/log/shell-mongo
+SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 
 USERID=$(id -u)
