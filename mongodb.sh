@@ -26,19 +26,20 @@ VALIDATE(){
     exit 1  
     else
     echo -e "$2 $G success $N" | tee -a $LOG_FILE
+
     fi
 }
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mango repo"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y &>>LOG_FILE
 VALIDATE $? "Install Mongodb"
 
-systemctl enable mongod
+systemctl enable mongod &>>LOG_FILE
 VALIDATE $? "Enable Mongodb"
 
-systemctl start mongod 
+systemctl start mongod &>>LOG_FILE
 VALIDATE $? "Start  Mongodb"
 
 
