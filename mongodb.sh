@@ -10,18 +10,18 @@ N='\e[0m'
 USERID=$(id -u)
 
 if [ $USERID -ne 0 ]; then
-    echo "Run script with Sudo permissins"
+    echo -e "Run script with Sudo permissins...  $R Validatin Failed $N "
     exit 1
 else
-    echo "SUdo permissions validated"
+    echo -e "SUdo permissions validated...   $G Validatin Success $N   "
 fi
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-    echo "$2 Failuer"
+    echo "$2 $R Failuer $N"
     exit 1  
     else
-    echo "$2 success"
+    echo "$2 $G success $N"
     fi
 }
 
