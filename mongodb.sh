@@ -28,14 +28,14 @@ VALIDATE(){
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mango repo"
 
-if [ $? -ne 0 ]; then
-    echo "Mongodb not exist"
-    cp 
-    dnf install mongodb-org -y
-else
-    echo "Mongodb already exist... skipping"
-fi
+dnf install mongodb-org -y
+VALIDATE $? "Install Mongodb"
 
+systemctl enable mongod
+VALIDATE $? "Enable Mongodb"
+
+systemctl start mongod 
+VALIDATE $? "Start  Mongodb"
 
 
 
