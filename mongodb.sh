@@ -28,8 +28,6 @@ VALIDATE(){
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mango repo"
 
-dnf list installed | grep -i mongo
-VALIDATE $? Mongodb
 if [ $? -ne 0 ]; then
     echo "Mongodb not exist"
     cp 
