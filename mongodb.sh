@@ -15,10 +15,12 @@ if [ $USERID -ne 0 ]; then
 else
     echo "SUdo permissions validated"
 fi
+cp mango.repo /etc/yum.repos.d/mongo.repo
 
 dnf list installed mongodb
 if [ $? -ne 0 ]; then
     echo "Mongodb not exist"
+    cp 
     dnf install mongodb-org -y
 else
     echo "Mongodb already exist... skipping"
