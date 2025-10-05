@@ -7,28 +7,32 @@ B='\e[34m'
 Y='\e[33m'
 N='\e[0m'
 
+LOG_FOLDER="/var/log/mongodb"
+SCRIPT_FILE=$(echo $0)
+LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
+
 USERID=$(id -u)
 
 if [ $USERID -ne 0 ]; then
-    echo -e "Run script with Sudo permissins...  $R Validatin Failed $N "
+    echo -e "Run script with Sudo permissins...  $R Validatin Failed $N " | tee -a $LOG_FILE
     exit 1
 else
-    echo -e "SUdo permissions validated...   $G Validatin Success $N   "
+    echo -e "SUdo permissions validated...   $G Validatin Success $N " | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-    echo -e "$2 $R Failuer $N"
+    echo -e "$2 $R Failuer $N" | tee -a $LOG_FILE
     exit 1  
     else
-    echo -e "$2 $G success $N"
+    echo -e "$2 $G success $N" | tee -a $LOG_FILE
     fi
 }
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mango repo"
 
-dnf installl mongodb-org -y
+dnf install mongodb-org -y
 VALIDATE $? "Install Mongodb"
 
 systemctl enable mongod
