@@ -15,7 +15,7 @@ if [ $USERID -ne 0 ]; then
 else
     echo "SUdo permissions validated"
 fi
-cp mango.repo /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 
 dnf list installed mongodb
 if [ $? -ne 0 ]; then
