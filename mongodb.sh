@@ -15,9 +15,21 @@ if [ $USERID -ne 0 ]; then
 else
     echo "SUdo permissions validated"
 fi
+
+VALIDATE(){
+    if [ $1 -ne 0 ]; then
+    echo "$2 Failuer"
+    exit 1  
+    else
+    echo "$2 success"
+    fi
+}
+
 cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Adding mango repo"
 
 dnf list installed mongodb
+VALIDATE $? Mongodb
 if [ $? -ne 0 ]; then
     echo "Mongodb not exist"
     cp 
@@ -25,6 +37,7 @@ if [ $? -ne 0 ]; then
 else
     echo "Mongodb already exist... skipping"
 fi
+
 
 
 
