@@ -16,6 +16,14 @@ else
     echo "SUdo permissions validated"
 fi
 
+dnf list installed mongodb
+if [ $? -ne 0 ]; then
+    echo "Mongodb not exist"
+    dnf install mongodb -y
+else
+    echo "Mongodb already exist... skipping"
+fi
+
 
 
 
