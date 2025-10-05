@@ -13,6 +13,8 @@ LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 
 USERID=$(id -u)
 
+mkdir -p $LOG_FOLDER
+
 if [ $USERID -ne 0 ]; then
     echo -e "Run script with Sudo permissins...  $R Validatin Failed $N " | tee -a $LOG_FILE
     exit 1
