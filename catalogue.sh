@@ -10,6 +10,7 @@ N='\e[0m'
 LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
+SCRIPT_DIR=$PWD
 
 USERID=$(id -u)
 
@@ -32,29 +33,48 @@ VALIDATE(){
 }
 
 dnf module list nodejs
-VALIDATE $? nodejs_list
-dnf module disable nodejs -y
-VALIDATE $? nodejs_disable
-dnf module enable nodejs:20 -y
-VALIDATE $? nodejs_enable_20
-dnf install nodejs -y
-VALIDATE $? nodejs_Install
-# useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-# mkdir /app 
-# curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-# cd /app 
-# unzip /tmp/catalogue.zip
-# npm install 
-# vim /etc/systemd/system/catalogue.service
-# <MONGODB-SERVER-IPADDRESS>
-# systemctl daemon-reload
-# systemctl enable catalogue 
-# systemctl start catalogue
-# vim /etc/yum.repos.d/mongo.repo
-# dnf install mongodb-mongosh -y
-# mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js
-# show dbs
-# use catalogue
-# show collections
-# db.products.find()
+VALIDATE $? nodejs_list &>>$LOG_FILE
 
+dnf module disable nodejs -y &>>$LOG_FILE
+VALIDATE $? nodejs_disable
+
+dnf module enable nodejs:20 -y &>>$LOG_FILE
+VALIDATE $? nodejs_enable_20
+
+dnf install nodejs -y &>>$LOG_FILE
+VALIDATE $? nodejs_Install
+
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+VALIDATE $? "roboshop user"
+
+mkdir /app &>>$LOG_FILE
+VALIDATE $? "Creating app directory"
+
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
+VALIDATE $? "Downloading code"
+
+unzip /tmp/catalogue.zip &>>$LOG_FILE
+VALIDATE $? "Unzip catalogue"
+
+npm install &>>$LOG_FILE
+VALIDATE $? "npm dependencies"
+
+cp $SCRIPT_DIR/catalogue.service  /etc/systemd/system/catalogue.service &>>$LOG_FILE
+VALIDATE $? "Copy systemctl service"
+
+systemctl daemon-reload &>>$LOG_FILE
+
+systemctl enable catalogue &>>$LOG_FILE
+VALIDATE $? "enable catalogue"
+
+systemctl start catalogue &>>$LOG_FILE
+VALIDATE $? "start catalogue"
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+VALIDATE $? "Copy mongo repo"
+
+dnf install mongodb-mongosh -y &>>$LOG_FILE
+VALIDATE $? "mongodb client install"
+
+mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js &>>$LOG_FILE
+VALIDATE $? "Load catalogue products"
