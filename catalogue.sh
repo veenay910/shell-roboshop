@@ -37,7 +37,8 @@ dnf module disable nodejs -y
 VALIDATE $? nodejs_disable
 dnf module enable nodejs:20 -y
 VALIDATE $? nodejs_enable_20
-# dnf install nodejs -y
+dnf install nodejs -y
+VALIDATE $? nodejs_Install
 # useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
 # mkdir /app 
 # curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
