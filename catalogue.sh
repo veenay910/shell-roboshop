@@ -32,9 +32,9 @@ VALIDATE(){
 }
 
 dnf module list nodejs
-VALIDATE $? nodejs
+VALIDATE $? nodejs_list
 dnf module disable nodejs -y
-VALIDATE $? nodejs
+VALIDATE $? nodejs_disable
 dnf module enable nodejs:20 -y
 VALIDATE $? nodejs_enable_20
 # dnf install nodejs -y
