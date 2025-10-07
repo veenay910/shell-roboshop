@@ -33,7 +33,6 @@ VALIDATE(){
 }
 
 dnf module list nodejs
-VALIDATE $? nodejs_list &>>$LOG_FILE
 
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? nodejs_disable
@@ -44,10 +43,15 @@ VALIDATE $? nodejs_enable_20
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? nodejs_Install
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
-VALIDATE $? "roboshop user"
+id roboshop &>>$LOG_FILE
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+    VALIDATE $? "Creating system user"
+else
+    echo -e "User already exist ... $Y SKIPPING $N"
+fi
 
-mkdir /app &>>$LOG_FILE
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
