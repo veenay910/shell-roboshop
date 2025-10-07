@@ -35,7 +35,8 @@ dnf module list nodejs
 VALIDATE $? nodejs
 dnf module disable nodejs -y
 VALIDATE $? nodejs
-# dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y
+VALIDATE $? nodejs_enable_20
 # dnf install nodejs -y
 # useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
 # mkdir /app 
