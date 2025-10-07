@@ -60,6 +60,9 @@ VALIDATE $? "Downloading code"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Unzip catalogue"
 
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
 npm install &>>$LOG_FILE
 VALIDATE $? "npm dependencies"
 
