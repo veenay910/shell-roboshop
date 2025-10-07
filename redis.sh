@@ -44,7 +44,7 @@ VALIDATE $? "install redis"
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf &>>$LOG_FILE
 VALIDATE $? "updated to 0.0.0.0" 
 
-sed -i 's/"protected-mode yes"/"protected-mode No"/' /etc/redis/redis.conf
+sed -i '/protected-mode/ c protected-mode No' /etc/redis/redis.conf
 VALIDATE $? "protect mode chagned to no"
 # protected-mode from yes to no in /etc/redis/redis.conf
 # vim /etc/redis/redis.conf
