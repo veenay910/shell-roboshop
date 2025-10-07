@@ -1,9 +1,9 @@
 #!/bin/bash
 
-AMI_ID=ami-09c813fb71547fc4f
-SG_ID=sg-03fe2ffe4f5201850
-ZONE_ID=Z04178031FEO6E3KYJ2X5
-DOMAIN_NAME=ddaws86s.fun
+AMI_ID="ami-09c813fb71547fc4f"
+SG_ID="sg-03fe2ffe4f5201850"
+ZONE_ID="Z04178031FEO6E3KYJ2X5"
+DOMAIN_NAME="ddaws86s.fun"
 
 for instance in $@
 do
