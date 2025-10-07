@@ -33,7 +33,8 @@ VALIDATE(){
 
 dnf module list nodejs
 VALIDATE $? nodejs
-# dnf module disable nodejs -y
+dnf module disable nodejs -y
+VALIDATE $? nodejs
 # dnf module enable nodejs:20 -y
 # dnf install nodejs -y
 # useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
