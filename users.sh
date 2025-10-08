@@ -62,6 +62,9 @@ VALIDATE $? "Download code"
 cd /app &>>$LOG_FILE 
 VALIDATE $? "switch app directory"
 
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
 unzip /tmp/user.zip &>>$LOG_FILE
 VALIDATE $? "unzipping code"
 
