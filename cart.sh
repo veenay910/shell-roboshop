@@ -80,8 +80,8 @@ VALIDATE $? "daemon-reload"
 systemctl enable cart &>>$LOG_FILE 
 VALIDATE $? "enable cart"
 
-systemctl start cart &>>$LOG_FILE
-VALIDATE $? "start cart"
+systemctl restart cart &>>$LOG_FILE
+VALIDATE $? "restart cart"
 
 
 
