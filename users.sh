@@ -10,6 +10,7 @@ N='\e[0m'
 LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
+SERVICE_FILE=$PWD
 
 USERID=$(id -u)
 
@@ -67,7 +68,7 @@ VALIDATE $? "unzipping code"
 npm install &>>$LOG_FILE 
 VALIDATE $? "install npm packages"
 
-cp user.service /etc/systemd/system/user.service &>>$LOG_FILE
+cp $SERVICE_FILE/user.service /etc/systemd/system/user.service &>>$LOG_FILE
 VALIDATE $? "coping file"
 
 systemctl daemon-reload &>>$LOG_FILE
