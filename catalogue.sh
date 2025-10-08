@@ -72,6 +72,7 @@ VALIDATE $? "npm dependencies"
 cp $SCRIPT_DIR/catalogue.service  /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "Copy systemctl service"
 
+
 systemctl daemon-reload &>>$LOG_FILE
 
 systemctl enable catalogue &>>$LOG_FILE
@@ -88,3 +89,6 @@ VALIDATE $? "mongodb client install"
 
 mongosh --host mongodb.ddaws86s.fun </app/db/master-data.js &>>$LOG_FILE
 VALIDATE $? "Load catalogue products"
+
+systemctl restart catalogue
+VALIDATE $? "Restarted catalogue"
