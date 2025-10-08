@@ -1,5 +1,5 @@
 #!/bin/bash
-USERID=$(id -u)
+
 # Define color variables for clarity
 R='\e[31m'
 G='\e[32m'
@@ -13,7 +13,7 @@ LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 START_TIME=$(date +%s)
 echo "Script started executed at: $(date)" | tee -a $LOG_FILE
 
-
+USERID=$(id -u)
 mkdir -p $LOG_FOLDER
 
 if [ $USERID -ne 0 ]; then
