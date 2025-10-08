@@ -65,7 +65,7 @@ VALIDATE $? "switch app directory"
 rm -rf /app/*
 VALIDATE $? "Removing existing code"
 
-unzip /tmp/user.zip &>>$LOG_FILE
+unzip /tmp/cart.zip &>>$LOG_FILE
 VALIDATE $? "unzipping code"
 
 npm install &>>$LOG_FILE 
@@ -77,11 +77,11 @@ VALIDATE $? "coping file"
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "daemon-reload"
 
-systemctl enable user &>>$LOG_FILE 
-VALIDATE $? "enable user"
+systemctl enable cart &>>$LOG_FILE 
+VALIDATE $? "enable cart"
 
-systemctl start user &>>$LOG_FILE
-VALIDATE $? "start user"
+systemctl start cart &>>$LOG_FILE
+VALIDATE $? "start cart"
 
 
 
