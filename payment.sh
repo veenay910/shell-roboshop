@@ -11,10 +11,9 @@ LOG_FOLDER="/var/log/shell-mongo"
 SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 SERVICE_FILE=$PWD
+mkdir -p $LOG_FOLDER
 
 USERID=$(id -u)
-
-mkdir -p $LOG_FOLDER
 
 if [ $USERID -ne 0 ]; then
     echo -e "Run script with Sudo permissins...  $R Validatin Failed $N " | tee -a $LOG_FILE
@@ -22,6 +21,7 @@ if [ $USERID -ne 0 ]; then
 else
     echo -e "SUdo permissions validated...   $G Validatin Success $N " | tee -a $LOG_FILE
 fi
+
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
