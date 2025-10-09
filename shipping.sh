@@ -78,13 +78,13 @@ dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "install mysql"
 
 mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
-VALIDATE $? ""
+VALIDATE $? "load schema"
 
 mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE 
-VALIDATE $? ""
+VALIDATE $? "load app user"
 
 mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
-VALIDATE $? ""
+VALIDATE $? "load master data"
 
 systemctl restart shipping &>>$LOG_FILE
-VALIDATE $? ""
+VALIDATE $? "restart shipping"
