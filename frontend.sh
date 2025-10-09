@@ -11,7 +11,7 @@ LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 SCRIPT_DIR=$PWD
-
+MONGODB_HOST=mongodb.ddaws86s.fun
 USERID=$(id -u)
 
 mkdir -p $LOG_FOLDER
