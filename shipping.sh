@@ -11,6 +11,7 @@ LOG_FOLDER="/var/log/shell-mongo"
 SCRIPT_FILE=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOG_FOLDER/$SCRIPT_FILE.log
 SERVICE_FILE=$PWD
+MYSQL_HOST=mysql.ddaws86s.fun
 
 USERID=$(id -u)
 
@@ -80,16 +81,13 @@ VALIDATE $? "start shipping"
 dnf install mysql -y &>>$LOG_FILE 
 VALIDATE $? "install mysql"
 
-mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
+mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
+if [ $? -ne 0 ]; then
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOG_FILE
+    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
+else
+    echo -e "Shipping data is already loaded ... $Y SKIPPING $N"
+fi
 
-mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
-VALIDATE $? "load schema"
-
-mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE 
-VALIDATE $? "load app user"
-
-mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
-VALIDATE $? "load master data"
-
-systemctl restart shipping &>>$LOG_FILE
-VALIDATE $? "restart shipping"
+systemctl restart shipping
