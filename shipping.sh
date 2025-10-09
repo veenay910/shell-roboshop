@@ -80,7 +80,7 @@ VALIDATE $? "start shipping"
 dnf install mysql -y &>>$LOG_FILE 
 VALIDATE $? "install mysql"
 
-mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
+mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
 
 mysql -h mysql.ddaws86s.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
 VALIDATE $? "load schema"
